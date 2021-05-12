@@ -1,0 +1,38 @@
+<mat-toolbar color="warn">
+Gestión de tareas
+</mat-toolbar>
+
+
+
+<mat-sidenav-container class="main-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" [fixedInViewport]="false" [fixedTopGap]="0" [fixedBottomGap]="0">
+        <mat-list role="list">
+            <mat-list-item class="menu-item" routerLinkActive="active" routerLink="list/all" matRipple role="listitem">
+                <mat-icon mat-list-icon>list</mat-icon> Todas
+            </mat-list-item>
+            <mat-list-item class="menu-item" routerLinkActive="active" routerLink="list/today" matRipple role="listitem">
+                <mat-icon mat-list-icon>today</mat-icon> Hoy
+            </mat-list-item>
+        </mat-list>
+        <mat-accordion class="group-accordion">
+            <mat-expansion-panel class="shadow-none">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Perfil
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list role="list">
+                    <mat-list-item class="menu-item" routerLink="list/all" [queryParams]="{gId: group.id}" matRipple role="listitem" *ngFor="let group of groups | async">
+                        {{ group.name }}
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

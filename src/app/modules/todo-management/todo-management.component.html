@@ -1,0 +1,73 @@
+<div class="row mt-3">
+    <h2>{{ model.addMode ? "Nueva" : (model.editMode ? "Actualizar" : "Ver") }} Tarea</h2>
+    <form class="col-8" (ngSubmit)="addNewTask(form)" #form="ngForm" [formGroup]="model.newTaskForm">
+        <div class="border border-1 p-4">
+            <div class="col-6 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Título</mat-label>
+                    <input matInput value="Sushi" formControlName="name">
+                    <mat-error *ngIf="titleCtrl?.hasError('required')">
+                        Campo requerido.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <div class="mb-4">
+                <div class="mb-2">
+                    <label>Prioridad</label>
+                </div>
+                <mat-radio-group aria-label="Select an option" formControlName="priority">
+                    <mat-radio-button class="col-2" *ngFor="let priority of priorities; trackBy : trackByPriority"
+                        [value]="priority.key">{{ priority.value }}</mat-radio-button>
+                </mat-radio-group>
+                <div class="error-msg mt-2">
+                    <span *ngIf="form?.submitted && priorityCtrl?.hasError('required')">
+                        Campo requerido.
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="col-3 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Fecha de entrega</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dueDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="dueDateCtrl?.hasError('required')">
+                        Campo requerido.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-3 mb-3">
+                <mat-form-field class="w-100">
+                    <mat-label>Grupo</mat-label>
+                    <mat-select formControlName="groupId">
+                        <mat-option *ngFor="let group of model.groups" [value]="group.id">
+                            {{group.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="groupIdCtrl?.hasError('required')">
+                        Campo requerido.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="d-md-flex flex-wrap justify-content-md-between">
+                <div>
+                    <a type="button" class="btn btn-link px-0" routerLink="/app/list/all">Atras</a>
+                </div>
+                <div>
+                    <button type="button" (click)="form.resetForm()" class="btn btn-warning mx-3 ">Borrar</button>
+                    <button type="submit" class="btn btn-primary" *ngIf="model.addMode">Añadir</button>
+                    <button type="button" class="btn btn-primary" (click)="editTask()"
+                        *ngIf="model.viewMode">Editar</button>
+                    <button type="button" class="btn btn-primary" (click)="updateTask()"
+                        *ngIf="model.editMode">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

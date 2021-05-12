@@ -1,0 +1,50 @@
+.main-container {
+  height: calc(100% - 64px);
+  background: #00838f;
+}
+
+.sidenav {
+  width: 215px;
+  background: #006064;
+}
+
+.navbar-toggler {
+  border: 1px solid #b2ebf2;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 0.03em;
+  }
+  background: #00acc1;
+}
+
+.menu-item {
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #80deea;
+  }
+
+  &.active {
+    background: #00acc1;
+  }
+  
+}
+
+.group-accordion {
+  ::ng-deep {
+    .mat-expansion-panel-header,
+    .mat-expansion-panel-header.mat-expanded {
+      height: 56px;
+      color:#00838f;
+    }
+    .mat-expansion-panel-body {
+      padding: 0;
+    }
+    
+  }
+  
+}
